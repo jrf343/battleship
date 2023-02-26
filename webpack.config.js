@@ -1,11 +1,21 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
   mode: 'development',
+  entry: {
+    shipFactory: './src/factories/shipFactory.js',
+    gameboardFactory: './src/factories/gameboardFactory.js',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Document',
+    }),
+  ],
   output: {
-    filename: 'bundle.js',
+    filename: '[name]bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
   module: {
     rules: [
