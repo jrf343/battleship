@@ -19,11 +19,11 @@ const shipFactory = (shipType) => {
 
   const type = shipType;
   const length = shipTypes[type].length;
-  let hits = {value: 0};
+  let hits = { value: 0 };
 
   const hit = () => {
-    hits.value ++;
-  }
+    hits.value++;
+  };
 
   const isSunk = () => {
     if (hits.value === length) {
@@ -31,19 +31,18 @@ const shipFactory = (shipType) => {
     } else {
       return false;
     }
-  }
+  };
 
-  return { 
+  return {
     type,
     length,
     hits,
     hit,
     isSunk,
-  }
+  };
+};
 
-}
-
-module.exports = { 
-  shipFactory
+module.exports = {
+  shipFactory,
   
-}
+};
