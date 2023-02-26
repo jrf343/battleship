@@ -28,7 +28,7 @@ const gameboardFactory = () => {
 
     const placeShip = (shipType, xCoord, yCoord, direction) => {
         const ship = (shipArray.find(ship => ship.type === shipType));
-        const size = (shipArray.find(ship => ship.type === shipType)).length
+        const size = ship.length;
 
         const boundaryCheck = checkBoundary(size, xCoord, yCoord, direction);
         if (boundaryCheck === false) {
@@ -123,7 +123,7 @@ const gameboardFactory = () => {
 
     const shipReport = () => {
         if (liveShips.value === 0) {
-            console.log('Game over!')
+            console.log('Game over!');
         } else {
             console.log('Ships remaining: ' + liveShips.value);
         }
@@ -142,6 +142,3 @@ module.exports = {
     gameboardFactory
     
   }
-
-  const board = gameboardFactory();
-  console.log(board.getBoard());

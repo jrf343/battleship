@@ -48,7 +48,14 @@ it('takes multiple hits', () => {
     expect(ship.hits.value).toBe(2);
 })
 
-it('sinks correctly', () => {
+it('doesn\'t sink under correct conditions', () => {
+    const ship = module.shipFactory('carrier');
+    ship.hit();
+    ship.hit();
+    expect(ship.isSunk()).toBe(false);
+})
+
+it('sinks under correct conditions', () => {
     const ship = module.shipFactory('carrier');
     ship.hit();
     ship.hit();

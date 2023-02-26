@@ -22,7 +22,7 @@ const shipFactory = (shipType) => {
   let hits = {value: 0};
 
   const hit = () => {
-    hits.value += 1;
+    hits.value ++;
   }
 
   const isSunk = () => {
