@@ -1,4 +1,4 @@
-const module = require('../src/factories/gameboardFactory');
+const module = require('../src/factories/gameboard');
 
 it('generates a new gameboard', () => {
     const board = module.gameboardFactory();

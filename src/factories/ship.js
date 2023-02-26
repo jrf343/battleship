@@ -34,7 +34,6 @@ const shipFactory = (shipType) => {
   }
 
   return { 
-    shipTypes,
     type,
     length,
     hits,

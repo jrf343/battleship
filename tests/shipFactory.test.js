@@ -1,4 +1,4 @@
-const module = require('../src/factories/shipFactory');
+const module = require('../src/factories/ship');
 
 it('creates a new carrier with correct parameters', () => {
     const ship = module.shipFactory('carrier');

@@ -9,13 +9,13 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/factories/shipFactory.js":
-/*!**************************************!*\
-  !*** ./src/factories/shipFactory.js ***!
-  \**************************************/
+/***/ "./src/factories/ship.js":
+/*!*******************************!*\
+  !*** ./src/factories/ship.js ***!
+  \*******************************/
 /***/ ((module) => {
 
-eval("const shipFactory = (shipType) => {\n  const shipTypes = {\n    carrier: {\n      length: 5,\n    },\n    battleship: {\n      length: 4,\n    },\n    submarine: {\n      length: 3,\n    },\n    cruiser: {\n      length: 3,\n    },\n    patrolBoat: {\n      length: 2,\n    },\n  };\n\n  const type = shipType;\n  const length = shipTypes[type].length;\n  let hits = {value: 0};\n\n  const hit = () => {\n    hits.value += 1;\n  }\n\n  const isSunk = () => {\n    if (hits.value == length) {\n      return true;\n    } else {\n      return false;\n    }\n  }\n\n  return { \n    type,\n    length,\n    hits,\n    hit,\n    isSunk,\n  }\n\n}\n\nmodule.exports = { \n  shipFactory\n  \n}\n\n//# sourceURL=webpack://jest-demo/./src/factories/shipFactory.js?");
+eval("const shipFactory = (shipType) => {\n  const shipTypes = {\n    carrier: {\n      length: 5,\n    },\n    battleship: {\n      length: 4,\n    },\n    submarine: {\n      length: 3,\n    },\n    cruiser: {\n      length: 3,\n    },\n    patrolBoat: {\n      length: 2,\n    },\n  };\n\n  const type = shipType;\n  const length = shipTypes[type].length;\n  let hits = {value: 0};\n\n  const hit = () => {\n    hits.value ++;\n  }\n\n  const isSunk = () => {\n    if (hits.value === length) {\n      return true;\n    } else {\n      return false;\n    }\n  }\n\n  return { \n    type,\n    length,\n    hits,\n    hit,\n    isSunk,\n  }\n\n}\n\nmodule.exports = { \n  shipFactory\n  \n}\n\n//# sourceURL=webpack://jest-demo/./src/factories/ship.js?");
 
 /***/ })
 
@@ -50,7 +50,7 @@ eval("const shipFactory = (shipType) => {\n  const shipTypes = {\n    carrier: {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/factories/shipFactory.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/factories/ship.js");
 /******/ 	
 /******/ })()
 ;
