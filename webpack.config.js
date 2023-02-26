@@ -4,8 +4,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    shipFactory: "./src/factories/ship.js",
-    gameboardFactory: "./src/factories/gameboard.js",
+    ship: "./src/factories/ship.js",
+    gameboard: "./src/factories/gameboard.js",
+    player: "./src/factories/player.js",
+    ai: "./src/factories/ai.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
