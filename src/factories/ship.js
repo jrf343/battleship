@@ -44,5 +44,4 @@ const shipFactory = (shipType) => {
 
 module.exports = {
   shipFactory,
-  
 };
