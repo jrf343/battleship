@@ -4,7 +4,7 @@ const aiFactory = () => {
   const name = "computer";
   const board = gameboard.gameboardFactory();
 
-  const directions = ["north", "south", "east", "west"];
+  const directions = ["horizontal", "vertical",];
   const shipTypes = [
     "carrier",
     "battleship",
@@ -24,7 +24,7 @@ const aiFactory = () => {
   const getRandomShipPlacement = () => {
     let xCoord = Math.floor(Math.random() * 10);
     let yCoord = Math.floor(Math.random() * 10);
-    let direction = directions[Math.floor(Math.random() * 4)];
+    let direction = directions[Math.floor(Math.random() * 2)];
     let shipType = shipTypes[Math.floor(Math.random() * 5)];
     let placement = {
       shipType: shipType,
@@ -49,7 +49,7 @@ const aiFactory = () => {
     let yCoord = Math.floor(Math.random() * 10);
     let target = { x: xCoord, y: yCoord };
     if (attackedCoords.length != 0) {
-      for (let obj of attackCoords) {
+      for (let obj of attackedCoords) {
         if (target === obj) {
           getRandomAttackCoords();
         }

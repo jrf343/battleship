@@ -29,10 +29,8 @@ it("generates correct random ship placements", () => {
   ).toBe(true);
   expect(0 <= placement.x <= 9 && 0 <= placement.y <= 9).toBe(true);
   expect(
-    placement.direction === "north" ||
-      placement.direction === "south" ||
-      placement.direction === "east" ||
-      placement.direction === "west"
+    placement.direction === "vertical" ||
+      placement.direction === "horizontal"
   ).toBe(true);
 });
 

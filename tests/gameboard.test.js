@@ -13,7 +13,7 @@ it("generates a new gameboard", () => {
 
 it("places ships correctly", () => {
   const board = module.gameboardFactory();
-  board.placeShip("patrolBoat", 0, 0, "west");
+  board.placeShip("patrolBoat", 0, 0, "horizontal");
   expect(board.getBoard[0][0]).toEqual({
     occupied: true,
     miss: false,
@@ -30,22 +30,22 @@ it("places ships correctly", () => {
 
 it("doesn't place ships incorrectly", () => {
   const board = module.gameboardFactory();
-  board.placeShip("patrolBoat", 0, 0, "west");
+  board.placeShip("patrolBoat", 0, 0, "horizontal");
   expect(() => {
-    board.placeShip("carrier", 0, 0, "north");
+    board.placeShip("carrier", 0, 0, "vertical");
   }).toThrow("Impossible placement: overlapping ships");
 });
 
 it("doesn't place ships incorrectly pt 2", () => {
   const board = module.gameboardFactory();
   expect(() => {
-    board.placeShip("carrier", 0, 0, "south");
+    board.placeShip("carrier", 9, 0, "vertical");
   }).toThrow("Impossible placement: off board");
 });
 
 it("recieves attacks correctly", () => {
   const board = module.gameboardFactory();
-  board.placeShip("patrolBoat", 0, 0, "west");
+  board.placeShip("patrolBoat", 0, 0, "horizontal");
   board.recieveAttack(0, 0);
   expect(board.getBoard[0][0].shot).toBe(true);
 });

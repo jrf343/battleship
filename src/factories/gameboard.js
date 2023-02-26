@@ -36,20 +36,10 @@ const gameboardFactory = () => {
     } else if (checkOverlap(size, xCoord, yCoord, direction) === false) {
       throw new Error("Impossible placement: overlapping ships");
     } else {
-      if (direction === "north") {
+      if (direction === "vertical") {
         for (let i = 0; i < size; i++) {
           board[xCoord + i][yCoord].occupied = true;
           board[xCoord + i][yCoord].ship = targetShip.type;
-        }
-      } else if (direction === "south") {
-        for (let i = 0; i < size; i++) {
-          board[xCoord - i][yCoord].occupied = true;
-          board[xCoord - i][yCoord].shipName = targetShip.type;
-        }
-      } else if (direction === "east") {
-        for (let i = 0; i < size; i++) {
-          board[xCoord][yCoord - i].occupied = true;
-          board[xCoord][yCoord - i].shipName = targetShip.type;
         }
       } else {
         for (let i = 0; i < size; i++) {
@@ -61,39 +51,27 @@ const gameboardFactory = () => {
   };
 
   const checkBoundary = (size, xCoord, yCoord, direction) => {
-    if (direction === "north" && xCoord + size > 9) {
-      return false;
-    } else if (direction === "south" && xCoord - size < 0) {
-      return false;
-    } else if (direction === "east" && yCoord - size < 0) {
-      return false;
-    } else if (direction === "west" && yCoord + size > 9) {
-      return false;
+    if (direction === "vertical") {
+        if( xCoord + size > 9 ) {
+            return false;
+        }
+    } else if (direction === "horizontal") {
+        if ( yCoord + size > 9) {
+            return false; 
+        }
     } else {
       return true;
     }
   };
 
   const checkOverlap = (size, xCoord, yCoord, direction) => {
-    if (direction === "north") {
+    if (direction === "vertical") {
       for (let i = 0; i < size; i++) {
         if (board[xCoord + i][yCoord].occupied === true) {
           return false;
         }
       }
-    } else if (direction === "south") {
-      for (let i = 0; i < size; i++) {
-        if (board[xCoord - i][yCoord].occupied === true) {
-          return false;
-        }
-      }
-    } else if (direction === "east") {
-      for (let i = 0; i < size; i++) {
-        if (board[xCoord][yCoord - i].occupied === true) {
-          return false;
-        }
-      }
-    } else if (direction === "west") {
+    } else if (direction === "horizontal") {
       for (let i = 0; i < size; i++) {
         if (board[xCoord][yCoord + i].occupied === true) {
           return false;
