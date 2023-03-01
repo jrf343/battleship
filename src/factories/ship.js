@@ -1,24 +1,15 @@
 const shipFactory = (shipType) => {
-  const shipTypes = {
-    carrier: {
-      length: 5,
-    },
-    battleship: {
-      length: 4,
-    },
-    submarine: {
-      length: 3,
-    },
-    cruiser: {
-      length: 3,
-    },
-    patrolBoat: {
-      length: 2,
-    },
-  };
+  const shipTypes = [
+    {name: 'carrier', length: 5 },
+    {name: 'battleship', length: 4 },
+    {name: 'submarine', length: 3 },
+    {name: 'cruiser', length: 3 },
+    {name: 'patrolBoat', length: 2 },
+  ];
 
-  const type = shipType;
-  const length = shipTypes[type].length;
+  const ship = shipTypes.find(obj => obj.name === shipType)
+  const name = ship.name;
+  const length = ship.length;
   let hits = { value: 0 };
 
   const hit = () => {
@@ -34,7 +25,7 @@ const shipFactory = (shipType) => {
   };
 
   return {
-    type,
+    name,
     length,
     hits,
     hit,
