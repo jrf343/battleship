@@ -78,6 +78,13 @@ function promptUser (user) {
     directionStatus.appendChild(label);  
     
     promptContainer.appendChild(directionStatus);
+
+    const submitButton = document.createElement('button');
+    submitButton.id = 'submitPlacement';
+    submitButton.classList.add('btn');
+    submitButton.innerText = 'begin battle';
+    promptContainer.appendChild(submitButton);
+
     
     document.body.appendChild(promptContainer);
 
@@ -104,8 +111,9 @@ function placeUserShips(user) {
     const userBoxes = document.querySelectorAll('.userGrid');
     const ships = document.querySelectorAll('.shipPrompt')
     const shipContainer = document.querySelector('#shipContainer');
-    let direction = 'vertical';
+    const submitButton = document.getElementById('submitPlacement');
     let placedArray = [];
+    let direction = 'vertical';
 
     const slider = document.querySelector('.slider');
     slider.addEventListener('click', () => {
@@ -175,10 +183,6 @@ function placeUserShips(user) {
 
             placedArray.push({ship: dragged.id, x: (e.target.style.gridRowStart - 1), y: (e.target.style.gridColumnStart - 1), direction: direction});
 
-            if (placedArray.length === 5) {
-                console.log('all placed');
-            };
-
         })
     })
 
@@ -215,6 +219,15 @@ function placeUserShips(user) {
             }
         }
     });
+
+    submitButton.addEventListener('click', () => {
+        console.log(placedArray);
+        if (placedArray.length !== 5) {
+            alert('You must place all 5 of your ships.')
+        } else {
+            alert('Good job!');
+        }
+    })
 
 }
 

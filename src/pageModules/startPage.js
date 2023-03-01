@@ -14,7 +14,7 @@ function startForm () {
     const submitName = document.createElement('button');
     submitName.id = 'submitName';
     submitName.classList.add('btn');
-    submitName.textContent = "START GAME";
+    submitName.textContent = "start game";
     submitName.addEventListener('click', () => {
         if (playerName.value === "") {
             alert('Please enter a name to begin the game.')

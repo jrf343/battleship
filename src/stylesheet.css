@@ -28,10 +28,8 @@ body {
     width: fit-content;
     margin: 12px;
     border-radius: 8px;
-}
-
-#submitName {
     font-size: clamp(24px, 4vw, 32px);
+    font-variant: small-caps;
 }
 
 .grid {
