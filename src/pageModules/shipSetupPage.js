@@ -15,23 +15,95 @@ const gridTypes = [
     {aiViewuserGrid: ''},
 ];
 
-function generateGrid (gridContainer, gridType, size) {
+function generateGrid (gridType, size) {
     let grid = [];
-    for (let i = 0; i < size; i++) {
+    for (let i=0; i < size; i++) {
         grid[i] = [];
-        for (let j = 0; j < size; j++) {
+        for (let j=0; j < size; j++) {
             grid[i].push({x: i, y: j});
-            let square = document.createElement('div');
-            square.classList.add('box');
-            square.classList.add(`${gridType}`);
-            square.style.gridRow = `${i +1 } / ${i + 1}`;
-            square.style.gridColumn = `${j + 1} / ${j + 1}`;
-            square.dataset.occupied = false;
-            gridContainer.appendChild(square);
+        }
+    }
+    gridTypes[gridType] = grid;
+    return grid;
+}
+
+function generateAdjacentSquares(square, direction, shipType) {
+    const userBoxes = document.querySelectorAll('.userGrid');
+    const x = parseInt(square.style.gridRowStart);
+    const y = parseInt(square.style.gridColumnStart);
+    const length = parseInt(getShipLength(shipType));
+
+    let spanArray = [];
+
+    if (direction === 'vertical') {
+        for (let i = x; i < (x + length); i++) {
+            for (let box of userBoxes) {
+                if (box.style.gridRowStart === `${i}` && box.style.gridColumnStart === `${y}`) {
+                    spanArray.push(box);
+                }
+            }
+        }
+    } else {
+        for (let box of userBoxes) {
+            for (let i = y; i < (y + length); i++) {
+                if (box.style.gridRowStart === `${x}` && box.style.gridColumnStart === `${i}`) {
+                    spanArray.push(box);
+                }
+            }
         }
     }
 
-    gridTypes[gridType] = grid;
+    return spanArray;
+}
+
+function checkCollision (spanArray) {
+    let collision = false;
+    for (let box of spanArray) {
+        if (box.dataset.occupied === 'true') {
+            collision = true;
+        } 
+    }
+    return collision;
+}
+
+function getShipLength(shipType) {
+    let length = null;
+    for (let ship of shipTypes) {
+        if (shipType === ship.type) {
+            length = ship.length;
+        }
+    }
+    return length;
+}
+
+/* Set up user board in UI where user will make their ship placement choices
+*/
+
+function generateUserGrid (user) {
+    let userBoard = user.board.getBoard;
+
+    const playerGrid = document.createElement('div');
+    playerGrid.classList.add('grid');
+    playerGrid.id = 'playerGrid';
+
+    let userGrid = generateGrid('userGrid', userBoard.length);
+
+    for (let elem of userGrid.flat()) {
+        let x = elem.x + 1;
+        let y = elem.y + 1;
+        let square = document.createElement('div');
+        square.classList.add('box');
+        square.classList.add('userGrid');
+        square.style.gridRow = `${x} / ${x}`;
+        square.style.gridColumn = `${y} / ${y}`;
+        square.dataset.occupied = false;
+        playerGrid.appendChild(square);
+    }
+
+    document.body.appendChild(playerGrid);
+
+    placeUserShips(user);
+
 }
 
 function promptUser (user) {
@@ -88,22 +160,7 @@ function promptUser (user) {
     
     document.body.appendChild(promptContainer);
 
-    setUpUserGrid(user);
-
-}
-
-function setUpUserGrid (user) {
-    let userBoard = user.board.getBoard;
-
-    const playerGrid = document.createElement('div');
-    playerGrid.classList.add('grid');
-    playerGrid.id = 'playerGrid';
-
-    generateGrid(playerGrid, 'userGrid', userBoard.length);
-
-    document.body.appendChild(playerGrid);
-
-    placeUserShips(user);
+    generateUserGrid(user);
 
 }
 
@@ -225,59 +282,10 @@ function placeUserShips(user) {
         if (placedArray.length !== 5) {
             alert('You must place all 5 of your ships.')
         } else {
-            alert('Good job!');
+            return;
         }
     })
 
-}
-
-function generateAdjacentSquares(square, direction, shipType) {
-    const userBoxes = document.querySelectorAll('.userGrid');
-    const x = parseInt(square.style.gridRowStart);
-    const y = parseInt(square.style.gridColumnStart);
-    const length = parseInt(getShipLength(shipType));
-
-    let spanArray = [];
-
-    if (direction === 'vertical') {
-        for (let i = x; i < (x + length); i++) {
-            for (let box of userBoxes) {
-                if (box.style.gridRowStart === `${i}` && box.style.gridColumnStart === `${y}`) {
-                    spanArray.push(box);
-                }
-            }
-        }
-    } else {
-        for (let box of userBoxes) {
-            for (let i = y; i < (y + length); i++) {
-                if (box.style.gridRowStart === `${x}` && box.style.gridColumnStart === `${i}`) {
-                    spanArray.push(box);
-                }
-            }
-        }
-    }
-
-    return spanArray;
-}
-
-function checkCollision (spanArray) {
-    let collision = false;
-    for (let box of spanArray) {
-        if (box.dataset.occupied === 'true') {
-            collision = true;
-        } 
-    }
-    return collision;
-}
-
-function getShipLength(shipType) {
-    let length = null;
-    for (let ship of shipTypes) {
-        if (shipType === ship.type) {
-            length = ship.length;
-        }
-    }
-    return length;
 }
 
 function addEventListeners(target) {
@@ -315,6 +323,14 @@ function removeEventListeners(target) {
     target.removeEventListener('dragover', dragover);
 
     target.removeEventListener('dragleave', dragleave);
+}
+
+/* Set up AI board 
+*/
+
+function generateAiGrid(computer) {
+    let computerBoard = computer.board.getBoard;
+    
 }
 
 function shipSetupPage (user, computer) {
