@@ -152,6 +152,7 @@ function placeUserShips(user) {
         );
       } catch (err) {
         alert(err + " Try again!");
+        e.target.classList.remove("drag-over");
         return;
       }
 
@@ -169,10 +170,11 @@ function placeUserShips(user) {
   })
 
   submitButton.addEventListener("click", () => {
-    if ((shipContainer.children = isUndefined)) {
-      return;
+    if ((shipContainer.children.length > 0 )) {
+        alert("You must place all 5 ships!");
     } else {
-      alert("You must place all 5 ships!");
+        alert("good job!")
+        return;
     }
   });
 }
