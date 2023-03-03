@@ -49,11 +49,11 @@ body {
 }
 
 .box[data-occupied="false"] {
-  background: darkred;
+  background: midnightblue;
 }
 
 .box[data-occupied="true"] {
-  background: lavender;
+  background: gray;
 }
 
 #directionStatus {
@@ -70,7 +70,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 2px solid darkred;
+  border: 2px solid midnightblue;
   padding: 16px;
   min-width: 720px;
   min-height: 48px;
@@ -82,8 +82,10 @@ body {
   margin: 8px;
   text-align: center;
   padding: 4px;
-  background-color: royalblue;
-  color: lavender;
+  background-color: skyblue;
+  color: midnightblue;
+  font-variant: small-caps;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .drag-over {
@@ -115,8 +117,11 @@ body {
   transition: all 0.4s ease;
   border-radius: 16px;
   background-color: skyblue;
-  color: darkred;
+  color: midnightblue;
   font-size: large;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .slider:before {
@@ -132,7 +137,7 @@ body {
 }
 
 input:checked + .slider {
-  background-color: darkred;
+  background-color: midnightblue;
 }
 
 input:checked + .slider:before {
