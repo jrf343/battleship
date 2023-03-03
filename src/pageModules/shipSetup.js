@@ -162,6 +162,11 @@ function placeUserShips(user) {
     });
   });
 
+  shipContainer.addEventListener("drop", (e) => {
+    e.preventDefault();
+    shipContainer.classList.remove("drag-over");
+  })
+
   submitButton.addEventListener("click", () => {
     if ((shipContainer.children = isUndefined)) {
       return;
