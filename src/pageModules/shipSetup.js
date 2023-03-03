@@ -108,7 +108,6 @@ function generateUserGrid(user) {
 
   document.body.appendChild(playerGrid);
 
-  placeUserShips(user);
 }
 
 function placeUserShips(user) {
@@ -233,6 +232,7 @@ function generateAiGrid(computer) {
 function shipSetup(user, computer) {
   promptUser();
   generateUserGrid(user);
+  placeUserShips(user);
 }
 
 module.exports = {
