@@ -43,9 +43,10 @@ body {
 
 .box {
   color: white;
-  min-width: 44px;
-  min-height: 44px;
-  padding: 4px;
+  min-width: 60px;
+  min-height: 60px;
+  align-content: center;
+
 }
 
 .box[data-occupied="false"] {
@@ -78,14 +79,39 @@ body {
 }
 
 .shipPrompt {
-  border: 2px solid darkred;
-  margin: 8px;
   text-align: center;
-  padding: 4px;
-  background-color: skyblue;
-  color: midnightblue;
+  margin: 8px;
+  width: 52px;
+  height: 52px;
   font-variant: small-caps;
   font-family: Arial, Helvetica, sans-serif;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.shipPrompt[data-placed="true"] {
+    margin: 0 auto;
+}
+
+#carrier.shipPrompt {
+    background-image: url(./assets/carrier.png);
+}
+
+#battleship.shipPrompt {
+    background-image: url('./assets/battleship.png');
+}
+
+#cruiser.shipPrompt {
+    background-image: url('./assets/cruiser.png');
+}
+
+#patrolBoat.shipPrompt {
+    background-image: url('./assets/patrolboat.png');
+}
+
+#submarine.shipPrompt {
+    background-image: url('./assets/submarine.png');
 }
 
 .drag-over {

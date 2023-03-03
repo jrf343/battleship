@@ -46,8 +46,8 @@ function promptUser() {
     let shipPrompt = document.createElement("div");
     shipPrompt.id = obj.type;
     shipPrompt.classList.add("shipPrompt");
+    shipPrompt.classList.add('shipImage');
     shipPrompt.draggable = true;
-    shipPrompt.textContent = obj.type;
     shipPrompt.dataset.placed = false;
     shipPromptContainer.appendChild(shipPrompt);
   }
@@ -158,6 +158,7 @@ function placeUserShips(user) {
       e.target.appendChild(dragged);
       dragged.removeEventListener("dragstart", dragstart);
       dragged.draggable = false;
+      dragged.dataset.placed = true;
       updateBoard(userBoxes, user.board.getBoard, direction);
     });
   });
