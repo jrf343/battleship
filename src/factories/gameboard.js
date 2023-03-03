@@ -1,12 +1,11 @@
 const ship = require("./ship");
 
 const gameboardFactory = () => {
-
-  const carrier = ship.shipFactory('carrier');
-  const battleship = ship.shipFactory('battleship');
-  const submarine = ship.shipFactory('submarine');
-  const cruiser = ship.shipFactory('cruiser');
-  const patrolBoat = ship.shipFactory('patrolBoat');
+  const carrier = ship.shipFactory("carrier");
+  const battleship = ship.shipFactory("battleship");
+  const submarine = ship.shipFactory("submarine");
+  const cruiser = ship.shipFactory("cruiser");
+  const patrolBoat = ship.shipFactory("patrolBoat");
 
   const shipArray = [carrier, battleship, submarine, cruiser, patrolBoat];
 
@@ -30,66 +29,67 @@ const gameboardFactory = () => {
     let targetShip = null;
     let size = null;
     for (let elem of shipArray) {
-        if (shipType === elem.name) {
-            targetShip = elem;
-            size = targetShip.length;
-        }
+      if (shipType === elem.name) {
+        targetShip = elem;
+        size = targetShip.length;
+      }
     }
 
     const spanArray = generateAdjacentSquares(size, xCoord, yCoord, direction);
 
     if (checkBoundaries(spanArray)) {
-        return new Error('Ship out of bounds.')
+      throw "Ship out of bounds.";
     }
 
     if (checkCollision(spanArray)) {
-        return new Error('Ship collision');
+      console.log("here");
+      throw "Ship collision.";
     }
 
     for (let elem of spanArray) {
-        board[elem.x][elem.y].occupied = true;
-        board[elem.x][elem.y].shipName = targetShip.name;
+      board[parseInt(elem.x)][parseInt(elem.y)].occupied = true;
+      board[parseInt(elem.x)][parseInt(elem.y)].shipName = targetShip.name;
     }
-
   };
 
   const generateAdjacentSquares = (size, xCoord, yCoord, direction) => {
     let spanArray = [];
 
-    if (direction === 'vertical') {
-        for (let i = 0; i < size; i++) {
-            let x = xCoord + i;
-            spanArray.push({x: x, y: yCoord});
-        }
+    if (direction === "vertical") {
+      for (let i = 0; i < size; i++) {
+        let x = xCoord + i;
+        spanArray.push({ x: x, y: yCoord });
+      }
     } else {
-        for (let i = 0; i < size; i++) {
-            let y = yCoord + i;
-            spanArray.push({x: xCoord, y: y});
-        }
+      for (let i = 0; i < size; i++) {
+        let y = yCoord + i;
+        spanArray.push({ x: xCoord, y: y });
+      }
     }
 
     return spanArray;
-  }
+  };
 
   const checkBoundaries = (spanArray) => {
     let outOfBounds = false;
     for (let elem of spanArray) {
-        if (elem.x > boardSize || elem.y > boardSize) {
-            outOfBounds = true;
-        }
+      if (parseInt(elem.x) >= boardSize || parseInt(elem.y) >= boardSize) {
+        outOfBounds = true;
+        return outOfBounds;
+      }
     }
     return outOfBounds;
-  }
+  };
 
   const checkCollision = (spanArray) => {
     let collision = false;
     for (let elem of spanArray) {
-        if (board[elem.x][elem.y].occupied === 'true') {
-            collision = true;
-        }
+      if (board[parseInt(elem.x)][parseInt(elem.y)].occupied === true) {
+        collision = true;
+      }
     }
     return collision;
-  }
+  };
 
   const recieveAttack = (xCoord, yCoord) => {
     board[xCoord][yCoord].shot = true;
@@ -120,13 +120,10 @@ const gameboardFactory = () => {
     boardSize,
     placeShip,
     recieveAttack,
-    checkBoundaries,
-    checkCollision,
 
     get getBoard() {
       return board;
     },
-
   };
 };
 

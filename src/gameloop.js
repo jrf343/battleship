@@ -1,23 +1,20 @@
 const player = require("./factories/player");
 const ai = require("./factories/ai");
-const shipSetup = require("./pageModules/shipSetupPage")
+const shipSetup = require("./pageModules/shipSetup");
 
 function gameLoop(playerName) {
+  let user = player.playerFactory(playerName);
+  let userBoard = user.board.getBoard;
+  let computer = ai.aiFactory();
+  let computerBoard = computer.board.getBoard;
 
-    let user = player.playerFactory(playerName);
-    let userBoard = user.board.getBoard;
-    let computer = ai.aiFactory();
-    let computerBoard = computer.board.getBoard;
+  const players = [user, computer];
 
-    const players = [user, computer];
+  shipSetup.shipSetup(user, computer);
 
-    shipSetup.shipSetupPage(user, computer);
-
-    let activePlayer = players[0];
-
+  let activePlayer = players[0];
 }
-
 
 module.exports = {
-    gameLoop,
-}
+  gameLoop,
+};

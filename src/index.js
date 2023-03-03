@@ -1,4 +1,4 @@
-import './stylesheet.css';
+import "./stylesheet.css";
 
 const header = require("./pageModules/loadHeader");
 const loadStart = require("./pageModules/startPage");

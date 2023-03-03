@@ -4,7 +4,7 @@ const aiFactory = () => {
   const name = "computer";
   const board = gameboard.gameboardFactory();
 
-  const directions = ["horizontal", "vertical",];
+  const directions = ["horizontal", "vertical"];
   const shipTypes = [
     "carrier",
     "battleship",
