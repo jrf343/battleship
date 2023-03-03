@@ -1,3 +1,10 @@
+html {
+    background: linear-gradient(to bottom right, gray, darkcyan);
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -35,7 +42,6 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  border: 2px solid darkred;
   padding: 4px;
   gap: 4px;
   background-color: skyblue;
