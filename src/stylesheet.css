@@ -42,9 +42,10 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  padding: 4px;
-  gap: 4px;
+  padding: 0.5em;
+  gap: 0.5em;
   background-color: skyblue;
+  justify-items: safe center;
 }
 
 .box {
@@ -85,39 +86,41 @@ body {
 }
 
 .shipPrompt {
-  text-align: center;
+  align-items: center;
   margin: 8px;
-  width: 52px;
   height: 52px;
   font-variant: small-caps;
   font-family: Arial, Helvetica, sans-serif;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
 
 .shipPrompt[data-placed="true"] {
-    margin: 0 auto;
+    margin: 4px;
 }
 
-#carrier.shipPrompt {
-    background-image: url(./assets/carrier.png);
+.shipImage {
+    width: 100%;
+    height: inherit;
+    object-fit: fill;
 }
 
-#battleship.shipPrompt {
-    background-image: url('./assets/battleship.png');
+#carrier.shipImage {
+    content: url('./assets/carrier.png');
 }
 
-#cruiser.shipPrompt {
-    background-image: url('./assets/cruiser.png');
+#battleship.shipImage {
+    content: url('./assets/battleship.png');
 }
 
-#patrolBoat.shipPrompt {
-    background-image: url('./assets/patrolboat.png');
+#cruiser.shipImage {
+    content: url('./assets/cruiser.png');
 }
 
-#submarine.shipPrompt {
-    background-image: url('./assets/submarine.png');
+#patrolBoat.shipImage {
+    content: url('./assets/patrolboat.png');
+}
+
+#submarine.shipImage {
+    content: url('./assets/submarine.png');
 }
 
 .drag-over {

@@ -21,23 +21,22 @@ const aiFactory = () => {
     opponent.board.recieveAttack(coords.x, coords.y);
   };
 
-  const getRandomShipPlacement = () => {
+  const getRandomShipPlacement = (ship) => {
     let xCoord = Math.floor(Math.random() * 10);
     let yCoord = Math.floor(Math.random() * 10);
     let direction = directions[Math.floor(Math.random() * 2)];
-    let shipType = shipTypes[Math.floor(Math.random() * 5)];
+    let shipType = ship;
     let placement = {
-      shipType: shipType,
+      shipType: ship,
       x: xCoord,
       y: yCoord,
       direction: direction,
     };
-    if (shipCoords.length != 0) {
-      for (let obj of shipCoords) {
-        if (placement === obj) {
-          getRandomShipPlacement();
-        }
-      }
+    try { 
+      board.placeShip(shipType, xCoord, yCoord, direction);
+    } catch (err) {
+      console.log(err);
+      getRandomShipPlacement(ship);
     }
 
     shipCoords.push(placement);

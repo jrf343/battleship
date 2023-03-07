@@ -28,6 +28,17 @@ function generateGrid(gridType, size) {
   return grid;
 }
 
+function getLength(shipType) {
+    let length = null;
+    for (let elem of shipTypes) {
+        if (shipType === elem.type) {
+          targetShip = elem;
+          length = targetShip.length;
+        }
+      }
+      return length;
+}
+
 /* Set up user board in UI where user will make their ship placement choices */
 
 function promptUser() {
@@ -46,9 +57,14 @@ function promptUser() {
     let shipPrompt = document.createElement("div");
     shipPrompt.id = obj.type;
     shipPrompt.classList.add("shipPrompt");
-    shipPrompt.classList.add('shipImage');
     shipPrompt.draggable = true;
     shipPrompt.dataset.placed = false;
+    shipPrompt.style.width = `${52 * obj.length}px`;
+    let shipImage = document.createElement("img");
+    shipImage.classList.add('shipImage');
+    shipImage.id = obj.type;
+    shipImage.draggable = true;
+    shipPrompt.appendChild(shipImage);
     shipPromptContainer.appendChild(shipPrompt);
   }
 
@@ -74,12 +90,6 @@ function promptUser() {
   directionStatus.appendChild(label);
 
   promptContainer.appendChild(directionStatus);
-
-  const submitButton = document.createElement("button");
-  submitButton.id = "submitPlacement";
-  submitButton.classList.add("btn");
-  submitButton.innerText = "begin battle";
-  promptContainer.appendChild(submitButton);
 
   document.body.appendChild(promptContainer);
 }
@@ -114,7 +124,7 @@ function placeUserShips(user) {
   const userBoxes = document.querySelectorAll(".userGrid");
   const ships = document.querySelectorAll(".shipPrompt");
   const shipContainer = document.querySelector("#shipContainer");
-  const submitButton = document.getElementById("submitPlacement");
+  const playerGrid = document.getElementById("playerGrid");
   let direction = "vertical";
 
   const slider = document.querySelector(".slider");
@@ -156,11 +166,33 @@ function placeUserShips(user) {
         return;
       }
 
-      e.target.appendChild(dragged);
+      let span = getLength(dragged.id);
+      dragged.style.display = 'grid';
+
+      if (direction === 'vertical') {
+        dragged.style.gridRow = `${box.style.gridRowStart} / span ${span}`;
+        dragged.style.gridColumn = box.style.gridColumn;
+        dragged.style.height = `${52 * span}px`;
+        dragged.style.width = '52px';
+        dragged.firstChild.style.transformOrigin = 'top left';
+        dragged.firstChild.style.transform = `rotate(90deg) translateY(-100%) translateX(-23%)`;
+        dragged.firstChild.style.width = `${52 * span}px`;
+        dragged.firstChild.style.height = '52px';
+      } else {
+        dragged.style.gridColumn = `${box.style.gridColumnStart} / span ${span}`;
+        dragged.style.gridRow = box.style.gridRow;
+      }
+
+      dragged.setAttribute("z-index", "101");
+      playerGrid.appendChild(dragged);
       dragged.removeEventListener("dragstart", dragstart);
       dragged.draggable = false;
+      dragged.firstChild.draggable = false;
       dragged.dataset.placed = true;
       updateBoard(userBoxes, user.board.getBoard, direction);
+
+      checkCompletion();
+
     });
   });
 
@@ -169,14 +201,15 @@ function placeUserShips(user) {
     shipContainer.classList.remove("drag-over");
   })
 
-  submitButton.addEventListener("click", () => {
+}
+
+function checkCompletion() {
+    const shipContainer = document.querySelector("#shipContainer");
     if ((shipContainer.children.length > 0 )) {
-        alert("You must place all 5 ships!");
-    } else {
-        alert("good job!")
         return;
+    } else {
+        console.log('finished!');
     }
-  });
 }
 
 function dragstart(e) {
@@ -235,12 +268,17 @@ function updateBoard(boxes, gameboard) {
 
 function generateAiGrid(computer) {
   let computerBoard = computer.board.getBoard;
+  for (let elem of shipTypes) {
+    computer.getRandomShipPlacement(elem.type);
+  }
+  console.log(computerBoard);
 }
 
 function shipSetup(user, computer) {
   promptUser();
   generateUserGrid(user);
   placeUserShips(user);
+  generateAiGrid(computer);
 }
 
 module.exports = {

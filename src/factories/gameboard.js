@@ -42,7 +42,6 @@ const gameboardFactory = () => {
     }
 
     if (checkCollision(spanArray)) {
-      console.log("here");
       throw "Ship collision.";
     }
 
@@ -50,6 +49,9 @@ const gameboardFactory = () => {
       board[parseInt(elem.x)][parseInt(elem.y)].occupied = true;
       board[parseInt(elem.x)][parseInt(elem.y)].shipName = targetShip.name;
     }
+
+    return spanArray;
+
   };
 
   const generateAdjacentSquares = (size, xCoord, yCoord, direction) => {
