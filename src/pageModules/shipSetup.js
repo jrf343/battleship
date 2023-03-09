@@ -59,7 +59,7 @@ function promptUser() {
     shipPrompt.classList.add("shipPrompt");
     shipPrompt.draggable = true;
     shipPrompt.dataset.placed = false;
-    shipPrompt.style.width = `${52 * obj.length}px`;
+    shipPrompt.style.width = `${56 * obj.length}px`;
     let shipImage = document.createElement("img");
     shipImage.classList.add('shipImage');
     shipImage.id = obj.type;
@@ -172,12 +172,12 @@ function placeUserShips(user) {
       if (direction === 'vertical') {
         dragged.style.gridRow = `${box.style.gridRowStart} / span ${span}`;
         dragged.style.gridColumn = box.style.gridColumn;
-        dragged.style.height = `${52 * span}px`;
-        dragged.style.width = '52px';
+        dragged.style.height = `${56 * span}px`;
+        dragged.style.width = '56px';
         dragged.firstChild.style.transformOrigin = 'top left';
-        dragged.firstChild.style.transform = `rotate(90deg) translateY(-100%) translateX(-23%)`;
-        dragged.firstChild.style.width = `${52 * span}px`;
-        dragged.firstChild.style.height = '52px';
+        dragged.firstChild.style.transform = `rotate(90deg) translateY(-100%) translateX(-25%)`;
+        dragged.firstChild.style.width = `${56 * span}px`;
+        dragged.firstChild.style.height = '56px';
       } else {
         dragged.style.gridColumn = `${box.style.gridColumnStart} / span ${span}`;
         dragged.style.gridRow = box.style.gridRow;
@@ -191,7 +191,7 @@ function placeUserShips(user) {
       dragged.dataset.placed = true;
       updateBoard(userBoxes, user.board.getBoard, direction);
 
-      checkCompletion();
+      checkCompletion(user);
 
     });
   });
@@ -203,12 +203,13 @@ function placeUserShips(user) {
 
 }
 
-function checkCompletion() {
+function checkCompletion(user) {
     const shipContainer = document.querySelector("#shipContainer");
     if ((shipContainer.children.length > 0 )) {
         return;
     } else {
         console.log('finished!');
+        console.log(user.board.getBoard)
     }
 }
 
